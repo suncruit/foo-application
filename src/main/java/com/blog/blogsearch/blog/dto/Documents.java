@@ -1,5 +1,8 @@
 package com.blog.blogsearch.blog.dto;
 
+import lombok.Getter;
+
+@Getter
 public class Documents {
     private final String contents;
     private final String dateTime;
@@ -11,21 +14,5 @@ public class Documents {
         this.dateTime = dateTime;
         this.title = title;
         this.url = url;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }

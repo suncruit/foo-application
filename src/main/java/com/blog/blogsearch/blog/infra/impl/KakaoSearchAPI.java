@@ -1,6 +1,8 @@
 package com.blog.blogsearch.blog.infra.impl;
 
 import com.blog.blogsearch.blog.dto.Documents;
+import com.blog.blogsearch.blog.dto.Meta;
+import com.blog.blogsearch.blog.dto.SearchDto;
 import com.blog.blogsearch.blog.infra.SearchAPI;
 import com.blog.blogsearch.utils.JSONParserUtil;
 import org.json.simple.JSONArray;
@@ -12,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -26,16 +29,29 @@ public class KakaoSearchAPI implements SearchAPI {
     @Value("${kakao.baseUri}")
     private String baseUri;
 
-    public List<Documents> search(String keyWord) {
+    public SearchDto.Response search(SearchDto.Request request) {
         try {
-            String response = getStringResponseFromKakaoApi(keyWord);
+            String response = getStringResponseFromKakaoApi(request);
             JSONObject apiResponse = JSONParserUtil.parseToJSON(response, JSONObject.class);
+
             JSONArray documentsArr = JSONParserUtil.parseToJSON(apiResponse.get("documents").toString(), JSONArray.class);
-            return getDocuments(documentsArr);
+            List<Documents> documentsList = getDocuments(documentsArr);
+
+            JSONObject metaJsonObject = JSONParserUtil.parseToJSON(apiResponse.get("meta").toString(), JSONObject.class);
+            Meta meta = getMeta(metaJsonObject);
+            return new SearchDto.Response(meta, documentsList);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new IllegalArgumentException("e");
+            throw new IllegalArgumentException("todo");
         }
+    }
+
+    private Meta getMeta(JSONObject metaJsonObject) {
+        Long totalCount = (Long) metaJsonObject.get("total_count");
+        Long pageableCount = (Long) metaJsonObject.get("pageable_count");
+        Boolean isEnd = (Boolean) metaJsonObject.get("is_end");
+        return new Meta(totalCount, pageableCount, isEnd);
     }
 
     private static List<Documents> getDocuments(JSONArray documentsArr) {
@@ -51,9 +67,8 @@ public class KakaoSearchAPI implements SearchAPI {
         return documentsList;
     }
 
-    private String getStringResponseFromKakaoApi(String keyWord) throws IOException {
-
-        URL url = new URL(baseUri + URLEncoder.encode(keyWord, StandardCharsets.UTF_8));
+    private String getStringResponseFromKakaoApi(SearchDto.Request request) throws IOException {
+        URL url = makeUrl(request);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setRequestMethod("GET");
@@ -78,6 +93,14 @@ public class KakaoSearchAPI implements SearchAPI {
         rd.close();
         conn.disconnect();
         return sb.toString();
+    }
+
+    private URL makeUrl(SearchDto.Request request) throws MalformedURLException {
+        String query = "query=" + URLEncoder.encode(request.getQuery(), StandardCharsets.UTF_8) + "&";
+        String sort = "sort=" + URLEncoder.encode(request.getSort(), StandardCharsets.UTF_8) + "&";
+        String page = "page=" + request.getPage() + "&";
+        String size = "size=" + request.getSize();
+        return new URL(baseUri + "?" + query + sort + page + size);
     }
 
 }
