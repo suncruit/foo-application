@@ -9,7 +9,7 @@ public enum SortCondition {
     ACCURACY("accuracy"), RECENCY("recency");
     private final String value;
 
-    public static boolean fromString(String str) {
+    public static boolean isValidSortCondition(String str) {
         for (SortCondition sortCondition : SortCondition.values()) {
             if (sortCondition.value.equals(str)) {
                 return true;
