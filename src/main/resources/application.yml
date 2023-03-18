@@ -21,3 +21,4 @@ spring:
 
 kakao:
   key: 2ff2f9d8163cd6368a9935e0c7dc0786
+  baseUri: https://dapi.kakao.com/v2/search/web?query=
