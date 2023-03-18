@@ -4,6 +4,8 @@ import com.blog.blogsearch.blog.dto.Documents;
 import com.blog.blogsearch.blog.dto.Meta;
 import com.blog.blogsearch.blog.dto.SearchDto;
 import com.blog.blogsearch.blog.infra.SearchAPI;
+import com.blog.blogsearch.exception.RestAPIException;
+import com.blog.blogsearch.exception.code.CommonErrorCode;
 import com.blog.blogsearch.utils.JSONParserUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -42,8 +44,7 @@ public class KakaoSearchAPI implements SearchAPI {
             return new SearchDto.Response(meta, documentsList);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new IllegalArgumentException("todo");
+            throw new RestAPIException(CommonErrorCode.SEARCH_API_EXCEPTION);
         }
     }
 

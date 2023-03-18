@@ -1,5 +1,7 @@
 package com.blog.blogsearch.blog.dto;
 
+import com.blog.blogsearch.exception.RestAPIException;
+import com.blog.blogsearch.exception.code.ValidationErrorCode;
 import lombok.Getter;
 
 import java.util.List;
@@ -28,17 +30,17 @@ public class SearchDto {
         }
 
         private Integer validatePage(Integer page) {
-            if (page > PAGE_MAX || page < PAGE_MIN) throw new IllegalArgumentException("todo");
+            if (page > PAGE_MAX || page < PAGE_MIN) throw new RestAPIException(ValidationErrorCode.INVALID_PAGE);
             return page;
         }
 
         private Integer validateSize(Integer size) {
-            if (size > SIZE_MAX || size < SIZE_MIN) throw new IllegalArgumentException("todo");
+            if (size > SIZE_MAX || size < SIZE_MIN) throw new RestAPIException(ValidationErrorCode.INVALID_SIZE);
             return size;
         }
 
         private String validateSort(String sort) {
-            if (!SortCondition.fromString(sort)) throw new IllegalArgumentException("todo");
+            if (!SortCondition.isValidSortCondition(sort)) throw new RestAPIException(ValidationErrorCode.INVALID_SORT);
             return sort;
         }
     }
