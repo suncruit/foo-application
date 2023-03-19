@@ -2,19 +2,25 @@ package com.blog.blogsearch.service;
 
 import com.blog.blogsearch.data.dto.PopularDto;
 import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.entity.SearchEntity;
 import com.blog.blogsearch.data.infra.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class BlogService {
+public class SearchService {
 
     private final SearchRepository searchRepository;
-    private final SearchService searchService;
+    private final SearchAPIService searchAPIService;
 
-    public SearchDto.Response searchAndUpdateCount(SearchDto.Request searchDto) {
-        return searchService.request(searchDto);
+    @Transactional
+    public SearchDto.Response searchAndIncreaseCount(SearchDto.Request searchDto) {
+        SearchEntity searchEntity = searchRepository.findBySearchKeyword(searchDto.getQuery())
+                .orElseGet(() -> searchRepository.save(SearchEntity.fromDto(searchDto)));
+        searchEntity.increaseCount();
+        return searchAPIService.request(searchDto);
     }
 
     public PopularDto.Response getPopularTopTen() {

@@ -15,9 +15,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        format_sql: false
+        format_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
 kakao:
   key: 2ff2f9d8163cd6368a9935e0c7dc0786

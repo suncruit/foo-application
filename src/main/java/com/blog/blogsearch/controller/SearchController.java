@@ -3,7 +3,7 @@ package com.blog.blogsearch.controller;
 
 import com.blog.blogsearch.data.dto.PopularDto;
 import com.blog.blogsearch.data.dto.SearchDto;
-import com.blog.blogsearch.service.BlogService;
+import com.blog.blogsearch.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/search")
 @RequiredArgsConstructor
-public class BlogController {
+public class SearchController {
 
-    private final BlogService blogService;
+    private final SearchService searchService;
 
-    @GetMapping("/search")
+    @GetMapping()
     public ResponseEntity<SearchDto.Response> getBlogSearch(
             @RequestParam(value = "query") String query,
             @RequestParam(value = "sort", defaultValue = "accuracy") String sort,
@@ -26,12 +26,12 @@ public class BlogController {
             @RequestParam(value = "size", defaultValue = "10") Integer size
     ) {
         SearchDto.Request request = new SearchDto.Request(query, sort, page, size);
-        return ResponseEntity.ok(blogService.searchAndUpdateCount(request));
+        return ResponseEntity.ok(searchService.searchAndIncreaseCount(request));
     }
 
-    @GetMapping("/search/popular")
+    @GetMapping("/popular")
     public ResponseEntity<PopularDto.Response> getPopularTopTen() {
-        PopularDto.Response response = blogService.getPopularTopTen();
+        PopularDto.Response response = searchService.getPopularTopTen();
         return ResponseEntity.ok(response);
     }
 }
