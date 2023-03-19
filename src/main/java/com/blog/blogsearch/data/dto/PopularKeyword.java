@@ -1,8 +1,10 @@
 package com.blog.blogsearch.data.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public class PopularKeyword {
 
     private final String keyword;

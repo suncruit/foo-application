@@ -2,10 +2,7 @@ package com.blog.blogsearch.data.entity;
 
 import com.blog.blogsearch.data.dto.PopularKeyword;
 import com.blog.blogsearch.data.dto.SearchDto;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
@@ -13,11 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Getter
-@Table(name = "SEARCH")
+
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter
+@Table(name = "SEARCH")
+@Entity
 public class SearchEntity {
 
     @Id
