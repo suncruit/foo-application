@@ -1,27 +1,25 @@
 package com.blog.blogsearch.service;
 
-import com.blog.blogsearch.HelloInterface;
+import com.blog.blogsearch.data.dto.PopularDto;
 import com.blog.blogsearch.data.dto.SearchDto;
-import com.blog.blogsearch.data.infra.SearchAPI;
 import com.blog.blogsearch.data.infra.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class SearchService {
+public class BlogService {
 
     private final SearchRepository searchRepository;
-    private final SearchAPI searchAPI;
+    private final SearchService searchService;
 
-    public String hello() {
-        List<HelloInterface> helloString = searchRepository.findHelloString();
-        return helloString.get(0).getHello();
+    public SearchDto.Response searchAndUpdateCount(SearchDto.Request searchDto) {
+        return searchService.request(searchDto);
     }
 
-    public SearchDto.Response search(SearchDto.Request searchDto) {
-        return searchAPI.search(searchDto);
+    public PopularDto.Response getPopularTopTen() {
+        searchRepository.findAll();
+        return new PopularDto.Response();
     }
+
 }

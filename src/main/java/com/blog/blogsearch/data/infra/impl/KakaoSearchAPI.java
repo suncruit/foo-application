@@ -1,12 +1,12 @@
 package com.blog.blogsearch.data.infra.impl;
 
+import com.blog.blogsearch.common.exception.RestAPIException;
+import com.blog.blogsearch.common.exception.code.CommonErrorCode;
+import com.blog.blogsearch.common.utils.JSONParserUtil;
 import com.blog.blogsearch.data.dto.Documents;
 import com.blog.blogsearch.data.dto.Meta;
 import com.blog.blogsearch.data.dto.SearchDto;
 import com.blog.blogsearch.data.infra.SearchAPI;
-import com.blog.blogsearch.common.exception.RestAPIException;
-import com.blog.blogsearch.common.exception.code.CommonErrorCode;
-import com.blog.blogsearch.common.utils.JSONParserUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +31,7 @@ public class KakaoSearchAPI implements SearchAPI {
     @Value("${kakao.baseUri}")
     private String baseUri;
 
-    public SearchDto.Response search(SearchDto.Request request) {
+    public SearchDto.Response request(SearchDto.Request request) {
         try {
             String response = getStringResponseFromKakaoApi(request);
             JSONObject apiResponse = JSONParserUtil.parseToJSON(response, JSONObject.class);

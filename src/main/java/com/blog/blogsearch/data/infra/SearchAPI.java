@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SearchAPI {
 
-    SearchDto.Response search(SearchDto.Request request);
+    SearchDto.Response request(SearchDto.Request request);
 }
