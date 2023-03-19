@@ -1,5 +1,6 @@
 package com.blog.blogsearch.data.entity;
 
+import com.blog.blogsearch.data.dto.PopularKeyword;
 import com.blog.blogsearch.data.dto.SearchDto;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,10 @@ public class SearchEntity {
 
     public static SearchEntity fromDto(SearchDto.Request searchDto) {
         return new SearchEntity(searchDto.getQuery(), 0);
+    }
+
+    public PopularKeyword toPopularKeyword() {
+        return new PopularKeyword(this.searchKeyword, this.count);
     }
 
     public void increaseCount() {

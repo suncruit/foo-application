@@ -1,12 +1,16 @@
 package com.blog.blogsearch.service;
 
 import com.blog.blogsearch.data.dto.PopularDto;
+import com.blog.blogsearch.data.dto.PopularKeyword;
 import com.blog.blogsearch.data.dto.SearchDto;
 import com.blog.blogsearch.data.entity.SearchEntity;
 import com.blog.blogsearch.data.infra.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +28,9 @@ public class SearchService {
     }
 
     public PopularDto.Response getPopularTopTen() {
-        searchRepository.findAll();
-        return new PopularDto.Response();
+        List<SearchEntity> entities = searchRepository.findTop10ByOrderByCountDesc();
+        List<PopularKeyword> collect = entities.stream().map(SearchEntity::toPopularKeyword).collect(Collectors.toList());
+        return new PopularDto.Response(collect);
     }
 
 }
