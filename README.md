@@ -2,8 +2,6 @@
 
 todo
 
-- 조회 API 카카오인지 네이버인지
-- DateTime 으로 전달
 - 동시성 테스트(부하테스트?)
     - api 부분 일부만 Mocking 해서?
     - 아니면 service 하나 더 분리?
@@ -19,12 +17,13 @@ GET /search
 
 Request Parameter
 
-| Name  |  Type   | Description | Required |
-|:-----:|:-------:|:-----------:|:--------:|
-| query | String  |     검색어     |    O     |
-| sort  | String  |    정렬기준     |    X     |
-| page  | Integer |    조회페이지    |    X     |
-| size  | Integer |    조회사이즈    |    X     |
+|   Name    |  Type   | Description | Required |
+|:---------:|:-------:|:-----------:|:--------:|
+|   query   | String  |     검색어     |    O     |
+|   sort    | String  |    정렬기준     |    X     |
+|   page    | Integer |    조회페이지    |    X     |
+|   size    | Integer |    조회사이즈    |    X     |
+| apiSource | String  |    정보 출처    |    X     |
 
 요청 예시
 
