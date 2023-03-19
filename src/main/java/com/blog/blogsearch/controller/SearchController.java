@@ -1,8 +1,8 @@
-package com.blog.blogsearch.blog.controller;
+package com.blog.blogsearch.controller;
 
 
-import com.blog.blogsearch.blog.dto.SearchDto;
-import com.blog.blogsearch.blog.service.SearchService;
+import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,10 +1,9 @@
-package com.blog.blogsearch.blog;
+package com.blog.blogsearch.controller;
 
-import com.blog.blogsearch.blog.controller.SearchController;
-import com.blog.blogsearch.blog.dto.Documents;
-import com.blog.blogsearch.blog.dto.Meta;
-import com.blog.blogsearch.blog.dto.SearchDto;
-import com.blog.blogsearch.blog.service.SearchService;
+import com.blog.blogsearch.data.dto.Documents;
+import com.blog.blogsearch.data.dto.Meta;
+import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.service.SearchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

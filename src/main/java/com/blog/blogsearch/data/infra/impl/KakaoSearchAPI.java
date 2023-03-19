@@ -1,9 +1,9 @@
-package com.blog.blogsearch.blog.infra.impl;
+package com.blog.blogsearch.data.infra.impl;
 
-import com.blog.blogsearch.blog.dto.Documents;
-import com.blog.blogsearch.blog.dto.Meta;
-import com.blog.blogsearch.blog.dto.SearchDto;
-import com.blog.blogsearch.blog.infra.SearchAPI;
+import com.blog.blogsearch.data.dto.Documents;
+import com.blog.blogsearch.data.dto.Meta;
+import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.infra.SearchAPI;
 import com.blog.blogsearch.common.exception.RestAPIException;
 import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import com.blog.blogsearch.common.utils.JSONParserUtil;

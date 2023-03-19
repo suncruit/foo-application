@@ -1,9 +1,9 @@
-package com.blog.blogsearch.blog.service;
+package com.blog.blogsearch.service;
 
-import com.blog.blogsearch.blog.HelloInterface;
-import com.blog.blogsearch.blog.SearchRepository;
-import com.blog.blogsearch.blog.dto.SearchDto;
-import com.blog.blogsearch.blog.infra.SearchAPI;
+import com.blog.blogsearch.HelloInterface;
+import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.infra.SearchAPI;
+import com.blog.blogsearch.data.infra.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

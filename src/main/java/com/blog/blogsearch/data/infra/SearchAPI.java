@@ -1,6 +1,6 @@
-package com.blog.blogsearch.blog.infra;
+package com.blog.blogsearch.data.infra;
 
-import com.blog.blogsearch.blog.dto.SearchDto;
+import com.blog.blogsearch.data.dto.SearchDto;
 import org.springframework.stereotype.Repository;
 
 @Repository

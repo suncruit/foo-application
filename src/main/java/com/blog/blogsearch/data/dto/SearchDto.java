@@ -1,5 +1,6 @@
-package com.blog.blogsearch.blog.dto;
+package com.blog.blogsearch.data.dto;
 
+import com.blog.blogsearch.data.SortCondition;
 import com.blog.blogsearch.common.exception.RestAPIException;
 import com.blog.blogsearch.common.exception.code.ValidationErrorCode;
 import lombok.EqualsAndHashCode;
