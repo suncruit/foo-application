@@ -1,6 +1,7 @@
 package com.blog.blogsearch.service;
 
 
+import com.blog.blogsearch.data.APISource;
 import com.blog.blogsearch.data.dto.Documents;
 import com.blog.blogsearch.data.dto.Meta;
 import com.blog.blogsearch.data.dto.SearchDto;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-@Import({SearchService.class, SearchAPIService.class, SearchRepository.class})
+//@Import
+@ContextConfiguration(classes = {SearchRepository.class, SearchService.class, SearchAPIService.class})
 public class SearchServiceTest {
 
     @MockBean
@@ -40,7 +42,7 @@ public class SearchServiceTest {
         SearchDto.Request requestDto = new SearchDto.Request("자바스크립트", "accuracy", 1, 1);
         SearchEntity searchEntity = new SearchEntity(requestDto.getQuery(), 15);
 
-        Meta meta = new Meta(10L, 10L, false);
+        Meta meta = new Meta(10L, 10L, false, APISource.KAKAO);
         List<Documents> documentsList = new ArrayList<>(List.of(new Documents("자바스크립트", "2023-03-11T00:00:00.000+09:00", "test", "https://foo.com")));
         SearchDto.Response response = new SearchDto.Response(meta, documentsList);
 

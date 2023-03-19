@@ -1,5 +1,6 @@
 package com.blog.blogsearch.controller;
 
+import com.blog.blogsearch.data.APISource;
 import com.blog.blogsearch.data.dto.*;
 import com.blog.blogsearch.service.SearchService;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,7 @@ public class SearchControllerTest {
     void searchTest() throws Exception {
         //given
         SearchDto.Request requestDto = new SearchDto.Request("자바스크립트", "accuracy", 1, 1);
-        Meta meta = new Meta(10L, 10L, false);
+        Meta meta = new Meta(10L, 10L, false, APISource.KAKAO);
         List<Documents> documentsList = new ArrayList<>(List.of(new Documents("자바스크립트", "2023-03-11T00:00:00.000+09:00", "test", "https://foo.com")));
         SearchDto.Response response = new SearchDto.Response(meta, documentsList);
 

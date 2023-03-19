@@ -3,6 +3,7 @@ package com.blog.blogsearch.data.infra.impl;
 import com.blog.blogsearch.common.exception.RestAPIException;
 import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import com.blog.blogsearch.common.utils.JSONParserUtil;
+import com.blog.blogsearch.data.APISource;
 import com.blog.blogsearch.data.dto.Documents;
 import com.blog.blogsearch.data.dto.Meta;
 import com.blog.blogsearch.data.dto.SearchDto;
@@ -52,7 +53,7 @@ public class KakaoSearchAPI implements SearchAPI {
         Long totalCount = (Long) metaJsonObject.get("total_count");
         Long pageableCount = (Long) metaJsonObject.get("pageable_count");
         Boolean isEnd = (Boolean) metaJsonObject.get("is_end");
-        return new Meta(totalCount, pageableCount, isEnd);
+        return new Meta(totalCount, pageableCount, isEnd, APISource.KAKAO);
     }
 
     private static List<Documents> getDocuments(JSONArray documentsArr) {
