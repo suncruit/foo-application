@@ -1,5 +1,7 @@
-package com.blog.blogsearch.blog;
+package com.blog.blogsearch.blog.service;
 
+import com.blog.blogsearch.blog.HelloInterface;
+import com.blog.blogsearch.blog.SearchRepository;
 import com.blog.blogsearch.blog.dto.SearchDto;
 import com.blog.blogsearch.blog.infra.SearchAPI;
 import lombok.RequiredArgsConstructor;

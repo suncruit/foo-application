@@ -1,6 +1,6 @@
-package com.blog.blogsearch.exception;
+package com.blog.blogsearch.common.exception;
 
-import com.blog.blogsearch.exception.code.ErrorCode;
+import com.blog.blogsearch.common.exception.code.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

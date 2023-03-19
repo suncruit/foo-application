@@ -1,4 +1,4 @@
-package com.blog.blogsearch.exception;
+package com.blog.blogsearch.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

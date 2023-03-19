@@ -1,7 +1,7 @@
-package com.blog.blogsearch.exception;
+package com.blog.blogsearch.common.exception;
 
-import com.blog.blogsearch.exception.code.CommonErrorCode;
-import com.blog.blogsearch.exception.code.ErrorCode;
+import com.blog.blogsearch.common.exception.code.CommonErrorCode;
+import com.blog.blogsearch.common.exception.code.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

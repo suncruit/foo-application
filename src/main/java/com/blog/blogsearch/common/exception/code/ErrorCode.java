@@ -1,4 +1,4 @@
-package com.blog.blogsearch.exception.code;
+package com.blog.blogsearch.common.exception.code;
 
 import org.springframework.http.HttpStatus;
 

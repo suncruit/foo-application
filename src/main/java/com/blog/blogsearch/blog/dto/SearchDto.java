@@ -1,15 +1,16 @@
 package com.blog.blogsearch.blog.dto;
 
-import com.blog.blogsearch.exception.RestAPIException;
-import com.blog.blogsearch.exception.code.ValidationErrorCode;
+import com.blog.blogsearch.common.exception.RestAPIException;
+import com.blog.blogsearch.common.exception.code.ValidationErrorCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
 
 
 public class SearchDto {
-
     @Getter
+    @EqualsAndHashCode
     public static class Request {
         private final String query;
         private final String sort;

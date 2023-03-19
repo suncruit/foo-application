@@ -1,7 +1,7 @@
-package com.blog.blogsearch.utils;
+package com.blog.blogsearch.common.utils;
 
-import com.blog.blogsearch.exception.RestAPIException;
-import com.blog.blogsearch.exception.code.CommonErrorCode;
+import com.blog.blogsearch.common.exception.RestAPIException;
+import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 

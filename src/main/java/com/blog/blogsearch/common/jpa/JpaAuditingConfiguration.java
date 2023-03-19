@@ -1,4 +1,4 @@
-package com.blog.blogsearch.jpa;
+package com.blog.blogsearch.common.jpa;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
