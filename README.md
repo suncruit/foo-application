@@ -17,13 +17,12 @@ GET /search
 
 Request Parameter
 
-|   Name    |  Type   | Description | Required |
-|:---------:|:-------:|:-----------:|:--------:|
-|   query   | String  |     검색어     |    O     |
-|   sort    | String  |    정렬기준     |    X     |
-|   page    | Integer |    조회페이지    |    X     |
-|   size    | Integer |    조회사이즈    |    X     |
-| apiSource | String  |    정보 출처    |    X     |
+| Name  |  Type   | Description | Required |
+|:-----:|:-------:|:-----------:|:--------:|
+| query | String  |     검색어     |    O     |
+| sort  | String  |    정렬기준     |    X     |
+| page  | Integer |    조회페이지    |    X     |
+| size  | Integer |    조회사이즈    |    X     |
 
 요청 예시
 
@@ -40,6 +39,7 @@ meta
 |  totalCount  | Integer |         검색된 문서 수         |
 | pageableSize | Integer | total_count 중 노출 가능 문서 수 |
 |    isEnd     | Boolean |       다음페이지 존재 여부        |
+|  apiSource   | String  |          정보 출처           |
 
 documents
 
