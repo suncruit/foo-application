@@ -30,7 +30,7 @@ public class SearchController {
         return ResponseEntity.ok(searchService.searchAndIncreaseCount(request));
     }
 
-    @GetMapping("/popular")
+    @GetMapping("/populars")
     public ResponseEntity<PopularResponseDto> getPopularTopTen() {
         PopularResponseDto response = searchService.getPopularTopTen();
         return ResponseEntity.ok(response);
