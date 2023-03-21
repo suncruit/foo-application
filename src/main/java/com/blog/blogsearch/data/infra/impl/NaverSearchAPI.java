@@ -50,7 +50,6 @@ public class NaverSearchAPI implements SearchAPI {
                 .queryParam("sort", sort)
                 .queryParam("start", request.getPage())
                 .queryParam("display", request.getSize())
-                .encode()
                 .toUriString();
     }
 }
