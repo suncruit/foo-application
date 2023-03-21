@@ -1,7 +1,7 @@
 package com.blog.blogsearch.data.entity;
 
 import com.blog.blogsearch.data.dto.PopularKeyword;
-import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.dto.SearchRequestDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -26,8 +26,8 @@ public class SearchEntity {
     @ColumnDefault("0")
     private Integer count;
 
-    public static SearchEntity fromDto(SearchDto.Request searchDto) {
-        return new SearchEntity(searchDto.getQuery(), 0);
+    public static SearchEntity fromDto(SearchRequestDto searchRequestDto) {
+        return new SearchEntity(searchRequestDto.getQuery(), 0);
     }
 
     public PopularKeyword toPopularKeyword() {

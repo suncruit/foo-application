@@ -15,10 +15,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        format_sql: true
+        format_sql: false
     hibernate:
       ddl-auto: create
 
 kakao:
   key: 2ff2f9d8163cd6368a9935e0c7dc0786
-  baseUri: https://dapi.kakao.com/v2/search/web
+  baseUri: https://dapi.kakao.com
+  endPoint: /v2/search/blog
