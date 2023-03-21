@@ -1,7 +1,7 @@
 package com.blog.blogsearch.data.entity;
 
 import com.blog.blogsearch.data.dto.PopularKeyword;
-import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.dto.SearchRequestDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,7 @@ public class SearchEntityTest {
     @DisplayName("dto -> entity 테스트")
     void fromDtoTest() {
         //given
-        SearchDto.Request dto = new SearchDto.Request("자바", "accuracy", 1, 1);
+        SearchRequestDto dto = new SearchRequestDto("자바", "accuracy", 1, 1);
         //when
         SearchEntity searchEntity = SearchEntity.fromDto(dto);
         //then

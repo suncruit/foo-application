@@ -1,12 +1,11 @@
 package com.blog.blogsearch.service;
 
 
-import com.blog.blogsearch.data.APISource;
-import com.blog.blogsearch.data.dto.Documents;
-import com.blog.blogsearch.data.dto.Meta;
-import com.blog.blogsearch.data.dto.SearchDto;
+import com.blog.blogsearch.data.dto.*;
 import com.blog.blogsearch.data.entity.SearchEntity;
 import com.blog.blogsearch.data.infra.SearchRepository;
+import com.blog.blogsearch.data.infra.impl.KakaoSearchAPI;
+import com.blog.blogsearch.data.infra.impl.NaverSearchAPI;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,13 +24,14 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 //@Import
-@ContextConfiguration(classes = {SearchRepository.class, SearchService.class, SearchAPIService.class})
+@ContextConfiguration(classes = {SearchRepository.class, SearchService.class, KakaoSearchAPI.class, NaverSearchAPI.class})
 public class SearchServiceTest {
 
     @MockBean
-    SearchAPIService searchAPIService;
-    @MockBean
     SearchRepository searchRepository;
+
+    @MockBean
+    KakaoSearchAPI kakaoSearchAPI;
     @Autowired
     SearchService searchService;
 
@@ -39,28 +39,28 @@ public class SearchServiceTest {
     @DisplayName("검색 서비스 테스트 - findBySearchKeyword()")
     public void findBySearchKeywordTest() {
         //given
-        SearchDto.Request requestDto = new SearchDto.Request("자바스크립트", "accuracy", 1, 1);
+        SearchRequestDto requestDto = new SearchRequestDto("자바스크립트", "accuracy", 1, 1);
         SearchEntity searchEntity = new SearchEntity(requestDto.getQuery(), 15);
 
-        Meta meta = new Meta(10L, 10L, false, APISource.KAKAO);
-        List<Documents> documentsList = new ArrayList<>(List.of(new Documents("자바스크립트", "2023-03-11T00:00:00.000+09:00", "test", "https://foo.com")));
-        SearchDto.Response response = new SearchDto.Response(meta, documentsList);
+        Meta meta = new Meta(10, 10, false);
+        List<Document> documentList = new ArrayList<>(List.of(new Document("자바스크립트", "contents", "https://foo.com", "blog", "thum", "2023-03-11T00:00:00.000+09:00")));
+        OpenAPIResponse response = new OpenAPIResponse(new KakaoAPIResponse(meta, documentList), 1, 1);
 
         Mockito.when(searchRepository.findBySearchKeyword(requestDto.getQuery()))
                 .thenReturn(Optional.of(searchEntity));
-        Mockito.when(searchAPIService.request(requestDto))
+        Mockito.when(kakaoSearchAPI.request(requestDto))
                 .thenReturn(response);
 
         //when
-        SearchDto.Response searchResponse = searchService.searchAndIncreaseCount(requestDto);
+        OpenAPIResponse openAPIResponse = searchService.searchAndIncreaseCount(requestDto);
 
         //then
-        assertThat(searchResponse.getDocumentsList().get(0).getContents()).isEqualTo("자바스크립트");
+        assertThat(openAPIResponse.getDocuments().get(0).getTitle()).isEqualTo("자바스크립트");
         assertThat(searchEntity.getCount()).isEqualTo(16);
 
         //verify
         verify(searchRepository).findBySearchKeyword(requestDto.getQuery());
-        verify(searchAPIService).request(requestDto);
+        verify(kakaoSearchAPI).request(requestDto);
     }
 
     @Test

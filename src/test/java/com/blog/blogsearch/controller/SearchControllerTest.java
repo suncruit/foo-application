@@ -1,6 +1,5 @@
 package com.blog.blogsearch.controller;
 
-import com.blog.blogsearch.data.APISource;
 import com.blog.blogsearch.data.dto.*;
 import com.blog.blogsearch.service.SearchService;
 import org.junit.jupiter.api.DisplayName;
@@ -34,10 +33,12 @@ public class SearchControllerTest {
     @DisplayName("검색 컨트롤러 테스트")
     void searchTest() throws Exception {
         //given
-        SearchDto.Request requestDto = new SearchDto.Request("자바스크립트", "accuracy", 1, 1);
-        Meta meta = new Meta(10L, 10L, false, APISource.KAKAO);
-        List<Documents> documentsList = new ArrayList<>(List.of(new Documents("자바스크립트", "2023-03-11T00:00:00.000+09:00", "test", "https://foo.com")));
-        SearchDto.Response response = new SearchDto.Response(meta, documentsList);
+        SearchRequestDto requestDto = new SearchRequestDto("자바스크립트", "accuracy", 1, 1);
+        Meta meta = new Meta(10, 10, false);
+        List<Document> documentList = new ArrayList<>(List.of(new Document("자바스크립트", "contents", "https://foo.com", "blog", "thum", "2023-03-11T00:00:00.000+09:00")));
+        OpenAPIResponse response = new OpenAPIResponse(new KakaoAPIResponse(meta, documentList), 1, 1);
+
+        //given
 
         Mockito.when(searchService.searchAndIncreaseCount(requestDto))
                 .thenReturn(response);
@@ -48,8 +49,8 @@ public class SearchControllerTest {
                         .param("page", "1")
                         .param("size", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.meta.totalCount").value(10L))
-                .andExpect(jsonPath("$.documentsList[0].contents").value("자바스크립트"))
+                .andExpect(jsonPath("$.metadata.totalCount").value(10L))
+                .andExpect(jsonPath("$.documents[0].title").value("자바스크립트"))
                 .andDo(print());
 
         //verify
@@ -66,10 +67,10 @@ public class SearchControllerTest {
         PopularKeyword c = new PopularKeyword("C", 3);
         ArrayList<PopularKeyword> popularKeywords = new ArrayList<>(List.of(java, javascript, c));
         Mockito.when(searchService.getPopularTopTen())
-                .thenReturn(new PopularDto.Response(popularKeywords));
+                .thenReturn(new PopularResponseDto(popularKeywords));
 
 
-        mockMvc.perform(get("/search/popular"))
+        mockMvc.perform(get("/search/populars"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.popularKeywordList[0].keyword").value("자바"))
                 .andExpect(jsonPath("$.popularKeywordList[0].count").value("10"))

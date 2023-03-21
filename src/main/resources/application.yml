@@ -23,3 +23,9 @@ kakao:
   key: 2ff2f9d8163cd6368a9935e0c7dc0786
   baseUri: https://dapi.kakao.com
   endPoint: /v2/search/blog
+
+naver:
+  id: e39grZW4qFHNsWV9Y3oN
+  secret: 9DZ5AmKFoc
+  baseUri: https://openapi.naver.com
+  endPoint: /v1/search/blog.json
