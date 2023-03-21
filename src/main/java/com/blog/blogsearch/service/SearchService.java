@@ -1,14 +1,13 @@
 package com.blog.blogsearch.service;
 
-import com.blog.blogsearch.common.exception.RestAPIException;
-import com.blog.blogsearch.common.exception.code.CommonErrorCode;
-import com.blog.blogsearch.data.dto.KakaoAPIResponse;
+import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.PopularKeyword;
 import com.blog.blogsearch.data.dto.PopularResponseDto;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.data.entity.SearchEntity;
 import com.blog.blogsearch.data.infra.SearchRepository;
 import com.blog.blogsearch.data.infra.impl.KakaoSearchAPI;
+import com.blog.blogsearch.data.infra.impl.NaverSearchAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +21,14 @@ public class SearchService {
 
     private final SearchRepository searchRepository;
     private final KakaoSearchAPI kakaoSearchAPI;
-//    private final NaverSearchAPI naverSearchAPI;
+    private final NaverSearchAPI naverSearchAPI;
 
     @Transactional
-    public KakaoAPIResponse searchAndIncreaseCount(SearchRequestDto searchDto) {
+    public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchDto) {
         try {
             return kakaoSearchAPI.request(searchDto);
-        } catch (RestAPIException e) {
-            throw new RestAPIException(CommonErrorCode.SEARCH_API_EXCEPTION);
+        } catch (Exception e) {
+            return naverSearchAPI.request(searchDto);
         }
 
 //        SearchEntity searchEntity = searchRepository.findBySearchKeyword(searchDto.getQuery())

@@ -1,7 +1,7 @@
 package com.blog.blogsearch.controller;
 
 
-import com.blog.blogsearch.data.dto.KakaoAPIResponse;
+import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.PopularResponseDto;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.service.SearchService;
@@ -20,7 +20,7 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping()
-    public ResponseEntity<KakaoAPIResponse> getBlogSearch(
+    public ResponseEntity<OpenAPIResponse> getBlogSearch(
             @RequestParam(value = "query") String query,
             @RequestParam(value = "sort", defaultValue = "accuracy") String sort,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
