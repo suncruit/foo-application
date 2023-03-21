@@ -21,10 +21,14 @@ public class SearchRequestDto {
     private static final Integer SIZE_MIN = 1;
 
     public SearchRequestDto(String query, String sort, Integer page, Integer size) {
-        this.query = query;
+        this.query = trim(query);
         this.sort = validateSort(sort);
         this.page = validatePage(page);
         this.size = validateSize(size);
+    }
+
+    private String trim(String query) {
+        return query.trim();
     }
 
     private Integer validatePage(Integer page) {

@@ -25,17 +25,18 @@ public class SearchService {
 
     @Transactional
     public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchDto) {
+        OpenAPIResponse openAPIResponse;
         try {
-            return kakaoSearchAPI.request(searchDto);
+            openAPIResponse = kakaoSearchAPI.request(searchDto);
         } catch (Exception e) {
-            return naverSearchAPI.request(searchDto);
+            openAPIResponse = naverSearchAPI.request(searchDto);
         }
 
-//        SearchEntity searchEntity = searchRepository.findBySearchKeyword(searchDto.getQuery())
-//                .orElseGet(() -> searchRepository.save(SearchEntity.fromDto(searchDto)));
-//        searchEntity.increaseCount();
-//
-//        return apiResponse;
+        SearchEntity searchEntity = searchRepository.findBySearchKeyword(searchDto.getQuery())
+                .orElseGet(() -> searchRepository.save(SearchEntity.fromDto(searchDto)));
+        searchEntity.increaseCount();
+
+        return openAPIResponse;
     }
 
     public PopularResponseDto getPopularTopTen() {

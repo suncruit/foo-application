@@ -32,7 +32,6 @@ public class KakaoSearchAPI implements SearchAPI {
     @Cacheable(value = "searchCacheStore", key = "#request.hashCode()")
     public OpenAPIResponse request(SearchRequestDto request) {
         try {
-            System.out.println("메서드 호출");
             String requestUri = makeUri(request);
             HttpHeaders headers = makeHeaders(Map.of("Authorization", "KakaoAK " + key));
 
