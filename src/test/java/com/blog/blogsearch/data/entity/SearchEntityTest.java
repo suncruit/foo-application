@@ -35,4 +35,12 @@ public class SearchEntityTest {
         //then
         Assertions.assertThat(popularKeyword).isEqualTo(new PopularKeyword("자바", 0));
     }
+
+    @Test
+    @DisplayName("카운트 증가 테스트")
+    public void countAddTest() {
+        SearchEntity searchEntity1 = new SearchEntity("자바", 0);
+        searchEntity1.increaseCount();
+        Assertions.assertThat(searchEntity1.getCount()).isEqualTo(1);
+    }
 }

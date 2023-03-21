@@ -1,6 +1,7 @@
 package com.blog.blogsearch.controller;
 
 import com.blog.blogsearch.data.dto.*;
+import com.blog.blogsearch.service.SearchCountService;
 import com.blog.blogsearch.service.SearchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,9 @@ public class SearchControllerTest {
 
     @MockBean
     SearchService searchService;
+
+    @MockBean
+    SearchCountService searchCountService;
 
     @Test
     @DisplayName("검색 컨트롤러 테스트")
@@ -66,7 +70,7 @@ public class SearchControllerTest {
         PopularKeyword javascript = new PopularKeyword("자바스크립트", 5);
         PopularKeyword c = new PopularKeyword("C", 3);
         ArrayList<PopularKeyword> popularKeywords = new ArrayList<>(List.of(java, javascript, c));
-        Mockito.when(searchService.getPopularTopTen())
+        Mockito.when(searchCountService.getPopularTopTen())
                 .thenReturn(new PopularResponseDto(popularKeywords));
 
 

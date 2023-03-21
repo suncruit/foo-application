@@ -4,6 +4,7 @@ package com.blog.blogsearch.controller;
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.PopularResponseDto;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
+import com.blog.blogsearch.service.SearchCountService;
 import com.blog.blogsearch.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SearchController {
 
     private final SearchService searchService;
+    private final SearchCountService searchCountService;
 
     @GetMapping()
     public ResponseEntity<OpenAPIResponse> getBlogSearch(
@@ -32,7 +34,7 @@ public class SearchController {
 
     @GetMapping("/populars")
     public ResponseEntity<PopularResponseDto> getPopularTopTen() {
-        PopularResponseDto response = searchService.getPopularTopTen();
+        PopularResponseDto response = searchCountService.getPopularTopTen();
         return ResponseEntity.ok(response);
     }
 }
