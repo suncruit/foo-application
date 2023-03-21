@@ -6,6 +6,8 @@ todo
     - api 부분 일부만 Mocking 해서?
     - 아니면 service 하나 더 분리?
 - Repository 테스트
+- 리드미 최신화
+- NaverAPI 테스트
 
 ### API 명세
 
@@ -26,8 +28,8 @@ Request Parameter
 
 요청 예시
 
-```
-curl -X GET "http://localhost:8080/search?query=java&sort=recency&page=1&size=5"
+```shell
+curl -v -G "localhost:8080/search?query=j"
 ```
 
 Response
