@@ -17,7 +17,7 @@ public class SearchService {
     private final SearchCountService searchCountService;
 
     @Transactional
-    public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) {
+    public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) throws Exception {
         OpenAPIResponse openAPIResponse;
         try {
             openAPIResponse = kakaoSearchAPI.request(searchRequestDto);

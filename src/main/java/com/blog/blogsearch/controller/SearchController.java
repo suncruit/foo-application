@@ -1,6 +1,8 @@
 package com.blog.blogsearch.controller;
 
 
+import com.blog.blogsearch.common.exception.RestAPIException;
+import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.PopularResponseDto;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
@@ -29,7 +31,11 @@ public class SearchController {
             @RequestParam(value = "size", defaultValue = "10") Integer size
     ) {
         SearchRequestDto request = new SearchRequestDto(query, sort, page, size);
-        return ResponseEntity.ok(searchService.searchAndIncreaseCount(request));
+        try {
+            return ResponseEntity.ok(searchService.searchAndIncreaseCount(request));
+        } catch (Exception e) {
+            throw new RestAPIException(CommonErrorCode.SEARCH_API_EXCEPTION);
+        }
     }
 
     @GetMapping("/populars")
