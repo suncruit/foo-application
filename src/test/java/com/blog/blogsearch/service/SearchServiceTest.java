@@ -20,8 +20,4 @@ public class SearchServiceTest {
     SearchCountService searchCountService;
     @Autowired
     SearchService searchService;
-
-
-    //todo 카카오 에러관련 테스트
-
 }

@@ -38,11 +38,25 @@ public class SearchControllerTest {
     void searchTest() throws Exception {
         //given
         SearchRequestDto requestDto = new SearchRequestDto("자바스크립트", "accuracy", 1, 1);
-        Meta meta = new Meta(10, 10, false);
-        List<Document> documentList = new ArrayList<>(List.of(new Document("자바스크립트", "contents", "https://foo.com", "blog", "thum", "2023-03-11T00:00:00.000+09:00")));
-        OpenAPIResponse response = new OpenAPIResponse(new KakaoAPIResponse(meta, documentList), 1, 1);
+        Meta meta = new Meta();
+        meta.setTotal_count(1);
+        meta.setPageable_count(1);
+        meta.set_end(false);
 
-        //given
+        Document document = new Document();
+        document.setTitle("자바스크립트");
+        document.setContents("contents");
+        document.setUrl("https://foo.com");
+        document.setBlogname("blog");
+        document.setThumbnail("thum");
+        document.setDatetime("2023-03-11T00:00:00.000+09:00");
+        List<Document> documentList = new ArrayList<>(List.of(document));
+        KakaoAPIResponse kakaoAPIResponse = new KakaoAPIResponse();
+
+        kakaoAPIResponse.setMeta(meta);
+        kakaoAPIResponse.setDocuments(documentList);
+
+        OpenAPIResponse response = new OpenAPIResponse(kakaoAPIResponse, 1, 1);
 
         Mockito.when(searchService.searchAndIncreaseCount(requestDto))
                 .thenReturn(response);
@@ -53,7 +67,7 @@ public class SearchControllerTest {
                         .param("page", "1")
                         .param("size", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.metadata.totalCount").value(10L))
+                .andExpect(jsonPath("$.metadata.totalCount").value(1))
                 .andExpect(jsonPath("$.documents[0].title").value("자바스크립트"))
                 .andDo(print());
 
