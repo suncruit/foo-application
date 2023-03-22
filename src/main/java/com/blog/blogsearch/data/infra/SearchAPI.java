@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.Map;
 
 public interface SearchAPI {
@@ -20,7 +21,7 @@ public interface SearchAPI {
         return httpHeaders;
     }
 
-    String makeUri(SearchRequestDto request) throws MalformedURLException;
+    URI makeUri(SearchRequestDto request) throws MalformedURLException;
 
     OpenAPIResponse request(SearchRequestDto request);
 }

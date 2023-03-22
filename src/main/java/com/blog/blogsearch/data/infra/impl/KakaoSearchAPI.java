@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Map;
 
 @Component
@@ -32,7 +33,7 @@ public class KakaoSearchAPI implements SearchAPI {
     @Cacheable(value = "searchCacheStore", key = "#request.hashCode()")
     public OpenAPIResponse request(SearchRequestDto request) {
         try {
-            String requestUri = makeUri(request);
+            URI requestUri = makeUri(request);
             HttpHeaders headers = makeHeaders(Map.of("Authorization", "KakaoAK " + key));
 
             HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
@@ -46,14 +47,13 @@ public class KakaoSearchAPI implements SearchAPI {
     }
 
     @Override
-    public String makeUri(SearchRequestDto request) {
+    public URI makeUri(SearchRequestDto request) {
         return UriComponentsBuilder.fromHttpUrl(baseUri + endPoint)
                 .queryParam("query", request.getQuery())
                 .queryParam("sort", request.getSort())
                 .queryParam("page", request.getPage())
                 .queryParam("size", request.getSize())
-                .encode()
-                .toUriString();
+                .build().encode().toUri();
     }
 
 

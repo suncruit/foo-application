@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Map;
 
 @Component
@@ -33,7 +34,7 @@ public class NaverSearchAPI implements SearchAPI {
     @Override
     @Cacheable(value = "searchCacheStore", key = "#request.hashCode()")
     public OpenAPIResponse request(SearchRequestDto request) {
-        String requestUri = makeUri(request);
+        URI requestUri = makeUri(request);
         HttpHeaders headers = makeHeaders(Map.of("X-Naver-Client-Id", id, "X-Naver-Client-Secret", secret));
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
@@ -43,13 +44,13 @@ public class NaverSearchAPI implements SearchAPI {
     }
 
     @Override
-    public String makeUri(SearchRequestDto request) {
+    public URI makeUri(SearchRequestDto request) {
         String sort = request.getSort().equals("accuracy") ? "sim" : "date";
         return UriComponentsBuilder.fromHttpUrl(baseUri + endPoint)
                 .queryParam("query", request.getQuery())
                 .queryParam("sort", sort)
                 .queryParam("start", request.getPage())
                 .queryParam("display", request.getSize())
-                .toUriString();
+                .build().encode().toUri();
     }
 }
