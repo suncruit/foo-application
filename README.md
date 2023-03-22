@@ -29,28 +29,29 @@ Request Parameter
 요청 예시
 
 ```shell
-curl -v -G "localhost:8080/search?query=j"
+curl -v -G --data-urlencode "query=한글" localhost:8080/search
 ```
 
 Response
 
-meta
+metadata
 
-|     Name     |  Type   |       Description        |
-|:------------:|:-------:|:------------------------:|
-|  totalCount  | Integer |         검색된 문서 수         |
-| pageableSize | Integer | total_count 중 노출 가능 문서 수 |
-|    isEnd     | Boolean |       다음페이지 존재 여부        |
-|  apiSource   | String  |          정보 출처           |
+|    Name    |  Type   | Description |
+|:----------:|:-------:|:-----------:|
+| totalCount | Integer |  검색된 문서 수   |
+|    page    | Integer |  결과 페이지 번호  |
+|    size    | Integer |  한 페이지 사이즈  |
 
 documents
 
-|   Name   |   Type   | Description |
-|:--------:|:--------:|:-----------:|
-|  title   |  String  |    문서 제목    |
-| contents |  String  | 문서 본문 중 일부  |
-|   url    |  String  |   문서 URL    |
-| dateTime | Datetime |  문서 글 작성시간  |
+|   Name    |   Type   | Description  |
+|:---------:|:--------:|:------------:|
+|   title   |  String  |   블로그 글 제목   |
+| contents  |  String  |  	블로그 글 요약   |
+|    url    |  String  |  블로그 글 URL   |
+| blogname  |  String  |   블로그의 이름    |
+| thumbnail |  String  | 미리보기 이미지 URL |
+| dateTime  | Datetime |  블로그 글 작성시간  |
 
 ---
 
@@ -61,7 +62,7 @@ GET /search/popular
 요청 예시
 
 ```
-curl -X GET "http://localhost:8080/search/popular" 
+curl -v -G localhost:8080/search/populars 
 ```
 
 Response
