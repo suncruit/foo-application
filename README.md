@@ -1,14 +1,5 @@
 # 블로그 검색 서비스
 
-todo
-
-- 동시성 테스트(부하테스트?)
-    - api 부분 일부만 Mocking 해서?
-    - 아니면 service 하나 더 분리?
-- Repository 테스트
-- 리드미 최신화
-- NaverAPI 테스트
-
 ### API 명세
 
 ---
