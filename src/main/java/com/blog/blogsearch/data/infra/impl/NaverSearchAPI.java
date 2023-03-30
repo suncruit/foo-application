@@ -6,6 +6,7 @@ import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.data.infra.SearchAPI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.Map;
 
+@Order(2)
 @Component
 public class NaverSearchAPI implements SearchAPI {
 

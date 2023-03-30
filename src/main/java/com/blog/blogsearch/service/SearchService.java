@@ -2,27 +2,27 @@ package com.blog.blogsearch.service;
 
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
-import com.blog.blogsearch.data.infra.impl.KakaoSearchAPI;
-import com.blog.blogsearch.data.infra.impl.NaverSearchAPI;
+import com.blog.blogsearch.data.infra.SearchAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SearchService {
 
-    private final KakaoSearchAPI kakaoSearchAPI;
-    private final NaverSearchAPI naverSearchAPI;
+    private final List<SearchAPI> searchAPIList;
     private final SearchCountService searchCountService;
 
     @Transactional
     public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) throws Exception {
         OpenAPIResponse openAPIResponse;
         try {
-            openAPIResponse = kakaoSearchAPI.request(searchRequestDto);
+            openAPIResponse = searchAPIList.get(0).request(searchRequestDto);
         } catch (Exception e) {
-            openAPIResponse = naverSearchAPI.request(searchRequestDto);
+            openAPIResponse = searchAPIList.get(1).request(searchRequestDto);
         }
         searchCountService.increaseCount(searchRequestDto);
         return openAPIResponse;
