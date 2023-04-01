@@ -25,7 +25,7 @@ public class SearchController {
 
     @GetMapping()
     public ResponseEntity<OpenAPIResponse> getBlogSearch(
-            @RequestParam(value = "query") String query,
+            @RequestParam(value = "query", defaultValue = "") String query,
             @RequestParam(value = "sort", defaultValue = "accuracy") String sort,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size

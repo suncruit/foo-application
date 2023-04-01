@@ -20,6 +20,8 @@ public class SearchRequestDto {
     private static final Integer SIZE_MAX = 50;
     private static final Integer SIZE_MIN = 1;
 
+    private static final String EMPTY_KEYWORD = "";
+
     public SearchRequestDto(String query, String sort, Integer page, Integer size) {
         this.query = trim(query);
         this.sort = validateSort(sort);
@@ -28,6 +30,7 @@ public class SearchRequestDto {
     }
 
     private String trim(String query) {
+        if (query.equals(EMPTY_KEYWORD)) throw new RestAPIException(ValidationErrorCode.QUERY_NOT_FOUND);
         return query.trim();
     }
 
