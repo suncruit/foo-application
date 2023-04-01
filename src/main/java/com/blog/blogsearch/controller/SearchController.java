@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,12 +24,9 @@ public class SearchController {
 
     @GetMapping()
     public ResponseEntity<OpenAPIResponse> getBlogSearch(
-            @RequestParam(value = "query") String query,
-            @RequestParam(value = "sort", defaultValue = "accuracy") String sort,
-            @RequestParam(value = "page", defaultValue = "1") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size
+            SearchRequestDto request
     ) {
-        SearchRequestDto request = new SearchRequestDto(query, sort, page, size);
+//        SearchRequestDto request = new SearchRequestDto(query, sort, page, size);
         try {
             return ResponseEntity.ok(searchService.searchAndIncreaseCount(request));
         } catch (Exception e) {
