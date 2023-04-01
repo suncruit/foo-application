@@ -1,14 +1,16 @@
 package com.blog.blogsearch.data.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Getter
-@Setter
 public class KakaoAPIResponse {
-    private Meta meta;
-    private List<Document> documents;
+    private final Meta meta;
+    private final List<Document> documents;
 
+    public KakaoAPIResponse(Meta meta, List<Document> documents) {
+        this.meta = meta;
+        this.documents = documents;
+    }
 }

@@ -1,15 +1,20 @@
 package com.blog.blogsearch.data.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Getter
-@Setter
 public class NaverAPIResponse {
-    private int total;
-    private int start;
-    private int display;
-    private List<Item> items;
+    private final int total;
+    private final int start;
+    private final int display;
+    private final List<Item> items;
+
+    public NaverAPIResponse(int total, int start, int display, List<Item> items) {
+        this.total = total;
+        this.start = start;
+        this.display = display;
+        this.items = items;
+    }
 }

@@ -38,24 +38,10 @@ public class SearchControllerTest {
     void searchTest() throws Exception {
         //given
         SearchRequestDto requestDto = new SearchRequestDto("자바스크립트", "accuracy", 1, 1);
-        Meta meta = new Meta();
-        meta.setTotal_count(1);
-        meta.setPageable_count(1);
-        meta.set_end(false);
-
-        Document document = new Document();
-        document.setTitle("자바스크립트");
-        document.setContents("contents");
-        document.setUrl("https://foo.com");
-        document.setBlogname("blog");
-        document.setThumbnail("thum");
-        document.setDatetime("2023-03-11T00:00:00.000+09:00");
+        Meta meta = new Meta(1, 1, false);
+        Document document = new Document("자바스크립트", "contents", "https://foo.com", "blog", "thum", "2023-03-11T00:00:00.000+09:00");
         List<Document> documentList = new ArrayList<>(List.of(document));
-        KakaoAPIResponse kakaoAPIResponse = new KakaoAPIResponse();
-
-        kakaoAPIResponse.setMeta(meta);
-        kakaoAPIResponse.setDocuments(documentList);
-
+        KakaoAPIResponse kakaoAPIResponse = new KakaoAPIResponse(meta, documentList);
         OpenAPIResponse response = new OpenAPIResponse(kakaoAPIResponse, 1, 1);
 
         Mockito.when(searchService.searchAndIncreaseCount(requestDto))

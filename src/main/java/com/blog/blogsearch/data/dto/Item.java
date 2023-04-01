@@ -1,15 +1,22 @@
 package com.blog.blogsearch.data.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class Item {
-    private String title;
-    private String link;
-    private String description;
-    private String bloggername;
-    private String bloggerlink;
-    private String postdate;
+    private final String title;
+    private final String link;
+    private final String description;
+    private final String bloggername;
+    private final String bloggerlink;
+    private final String postdate;
+
+    public Item(String title, String link, String description, String bloggername, String bloggerlink, String postdate) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.bloggername = bloggername;
+        this.bloggerlink = bloggerlink;
+        this.postdate = postdate;
+    }
 }
