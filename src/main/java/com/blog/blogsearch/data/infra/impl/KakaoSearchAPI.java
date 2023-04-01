@@ -7,6 +7,7 @@ import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.data.infra.SearchAPI;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
@@ -22,6 +23,9 @@ import java.util.Map;
 @Order(1)
 @Component
 public class KakaoSearchAPI implements SearchAPI {
+
+    private final RestTemplate restTemplate;
+
     @Value("${kakao.key}")
     private String key;
 
@@ -31,6 +35,10 @@ public class KakaoSearchAPI implements SearchAPI {
     @Value("${kakao.endPoint}")
     private String endPoint;
 
+    public KakaoSearchAPI(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
     @Override
     @Cacheable(value = "searchCacheStore", key = "#request.hashCode()")
     public OpenAPIResponse request(SearchRequestDto request) {
@@ -39,7 +47,6 @@ public class KakaoSearchAPI implements SearchAPI {
             HttpHeaders headers = makeHeaders(Map.of("Authorization", "KakaoAK " + key));
 
             HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
-            RestTemplate restTemplate = new RestTemplate();
             KakaoAPIResponse kakaoAPIResponse = restTemplate.exchange(requestUri, HttpMethod.GET, requestEntity, KakaoAPIResponse.class)
                     .getBody();
             return new OpenAPIResponse(kakaoAPIResponse, request.getPage(), request.getSize());

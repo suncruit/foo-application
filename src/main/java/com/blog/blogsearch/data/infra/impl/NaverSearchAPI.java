@@ -5,6 +5,7 @@ import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.data.infra.SearchAPI;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpEntity;
@@ -21,6 +22,8 @@ import java.util.Map;
 @Component
 public class NaverSearchAPI implements SearchAPI {
 
+    private final RestTemplate restTemplate;
+
     @Value("${naver.id}")
     private String id;
 
@@ -33,13 +36,16 @@ public class NaverSearchAPI implements SearchAPI {
     @Value("${naver.endPoint}")
     private String endPoint;
 
+    public NaverSearchAPI(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
     @Override
     @Cacheable(value = "searchCacheStore", key = "#request.hashCode()")
     public OpenAPIResponse request(SearchRequestDto request) {
         URI requestUri = makeUri(request);
         HttpHeaders headers = makeHeaders(Map.of("X-Naver-Client-Id", id, "X-Naver-Client-Secret", secret));
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
         NaverAPIResponse naverAPIResponse = restTemplate.exchange(requestUri, HttpMethod.GET, requestEntity, NaverAPIResponse.class)
                 .getBody();
         return new OpenAPIResponse(naverAPIResponse);
