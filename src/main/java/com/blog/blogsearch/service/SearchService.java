@@ -1,5 +1,7 @@
 package com.blog.blogsearch.service;
 
+import com.blog.blogsearch.common.exception.RestAPIException;
+import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
 import com.blog.blogsearch.data.infra.SearchAPI;
@@ -18,14 +20,25 @@ public class SearchService {
 
     @Transactional
     public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) throws Exception {
-        OpenAPIResponse openAPIResponse;
-        try {
-            openAPIResponse = searchAPIList.get(0).request(searchRequestDto);
-        } catch (Exception e) {
-            openAPIResponse = searchAPIList.get(1).request(searchRequestDto);
+        OpenAPIResponse openAPIResponse = null;
+
+        for (int i = 0; i < searchAPIList.size(); i++) {
+            try {
+                openAPIResponse = searchAPIList.get(i).request(searchRequestDto);
+                break;
+            } catch (Exception e) {
+                //logging
+                if (isLastAPI(i)) {
+                    throw new RestAPIException(CommonErrorCode.SEARCH_API_EXCEPTION);
+                }
+            }
         }
         searchCountService.increaseCount(searchRequestDto);
         return openAPIResponse;
+    }
+
+    private boolean isLastAPI(int i) {
+        return i == searchAPIList.size() - 1;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SearchRepository extends JpaRepository<SearchEntity, Long> {
+public interface SearchRepository extends JpaRepository<SearchEntity, String> {
 
 
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
