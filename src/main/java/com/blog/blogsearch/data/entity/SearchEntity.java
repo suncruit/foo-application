@@ -34,7 +34,7 @@ public class SearchEntity {
         return new PopularKeyword(this.searchKeyword, this.count);
     }
 
-    public void increaseCount() {
+    public synchronized void increaseCount() {
         count++;
     }
 }
