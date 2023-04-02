@@ -4,7 +4,6 @@ import com.blog.blogsearch.common.exception.RestAPIException;
 import com.blog.blogsearch.common.exception.code.CommonErrorCode;
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
-import com.blog.blogsearch.data.infra.SearchAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

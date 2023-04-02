@@ -1,4 +1,4 @@
-package com.blog.blogsearch.data.infra;
+package com.blog.blogsearch.service;
 
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;

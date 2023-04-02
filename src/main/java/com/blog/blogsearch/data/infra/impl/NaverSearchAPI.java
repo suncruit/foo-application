@@ -3,7 +3,7 @@ package com.blog.blogsearch.data.infra.impl;
 import com.blog.blogsearch.data.dto.NaverAPIResponse;
 import com.blog.blogsearch.data.dto.OpenAPIResponse;
 import com.blog.blogsearch.data.dto.SearchRequestDto;
-import com.blog.blogsearch.data.infra.SearchAPI;
+import com.blog.blogsearch.service.SearchAPI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
