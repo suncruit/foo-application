@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -58,7 +59,7 @@ public class SearchControllerTest {
                 .andDo(print());
 
         //verify
-        verify(searchService).searchAndIncreaseCount(requestDto);
+        verify(searchService, times(1)).searchAndIncreaseCount(requestDto);
     }
 
     @Test
