@@ -19,7 +19,7 @@ public class SearchCountService {
     private final SearchRepository searchRepository;
 
     @Transactional
-    void increaseCount(SearchRequestDto searchRequestDto) {
+    public void increaseCount(SearchRequestDto searchRequestDto) {
         SearchEntity searchEntity = searchRepository.findBySearchKeyword(searchRequestDto.getQuery())
                 .orElseGet(() -> searchRepository.save(SearchEntity.fromDto(searchRequestDto)));
         searchEntity.increaseCount();
