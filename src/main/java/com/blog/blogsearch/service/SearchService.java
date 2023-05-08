@@ -18,7 +18,7 @@ public class SearchService {
     private final SearchCountService searchCountService;
 
     @Transactional
-    public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) throws Exception {
+    public OpenAPIResponse searchAndIncreaseCount(SearchRequestDto searchRequestDto) {
         OpenAPIResponse openAPIResponse = null;
 
         for (int i = 0; i < searchAPIList.size(); i++) {
